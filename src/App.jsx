@@ -17,21 +17,21 @@ const T = {
       titleAr: "الرسالة",
       sub: "Your comprehensive Islamic Divine Compass. High-precision prayer times, precision Qibla, and essential Sharia calculators in one beautiful, native experience.",
       cta1: "Free Download",
-      cta2: "View on GitHub",
+      cta2: "Visit Website",
       stat1v: "4.9 / 5", stat1l: "Rating",
-      stat2v: "10K+",   stat2l: "Downloads",
-      stat3v: "100%",   stat3l: "Free"
+      stat2v: "10K+", stat2l: "Downloads",
+      stat3v: "100%", stat3l: "Free"
     },
     features: {
       tag: "Core Features",
       title: "Precision Meets Spirituality",
       sub: "Every detail in Al Risala is crafted for high performance and religious accuracy.",
       items: [
-        { title: "Prayer Times",        desc: "Accurate worldwide prayer times with customizable Adhan notifications for all 5 daily prayers." },
-        { title: "Qibla Compass",       desc: "Precision direction finding using native device sensors for perfect Mecca alignment." },
+        { title: "Prayer Times", desc: "Accurate worldwide prayer times with customizable Adhan notifications for all 5 daily prayers." },
+        { title: "Qibla Compass", desc: "Precision direction finding using native device sensors for perfect Mecca alignment." },
         { title: "Islamic Calculators", desc: "Advanced Zakat and Inheritance (Mawarith) calculators according to Sharia law." },
-        { title: "Hijri Calendar",      desc: "Integrated dual-calendar system with manual Hijri day adjustment support." },
-        { title: "Muslim Adhkar",       desc: "Complete collection of daily Islamic supplications — morning, evening, sleep, and occasion-based Adhkar." }
+        { title: "Hijri Calendar", desc: "Integrated dual-calendar system with manual Hijri day adjustment support." },
+        { title: "Muslim Adhkar", desc: "Complete collection of daily Islamic supplications — morning, evening, sleep, and occasion-based Adhkar." }
       ]
     },
     gallery: { tag: "App Gallery", title: "Beautifully Designed", sub: "A soulfully crafted interface for your spiritual journey." },
@@ -57,21 +57,21 @@ const T = {
       titleAr: "Al Risala",
       sub: "بوصلتك الإسلامية الشاملة. مواقيت صلاة بدقة عالية، قبلة دقيقة، وحاسبات شرعية أساسية في تجربة واحدة جميلة.",
       cta1: "تحميل مجاني",
-      cta2: "عرض على GitHub",
+      cta2: "زيارة الموقع",
       stat1v: "4.9 / 5", stat1l: "التقييم",
-      stat2v: "+10K",    stat2l: "التحميلات",
-      stat3v: "100%",    stat3l: "مجاني"
+      stat2v: "+10K", stat2l: "التحميلات",
+      stat3v: "100%", stat3l: "مجاني"
     },
     features: {
       tag: "المميزات الأساسية",
       title: "الدقة تلتقي بالروحانية",
       sub: "تم تصميم كل تفصيل في الرسالة لتقديم أداء عالٍ ودقة دينية.",
       items: [
-        { title: "مواقيت الصلاة",   desc: "مواقيت صلاة دقيقة حول العالم مع تنبيهات أذان قابلة للتخصيص للصلوات الخمس." },
-        { title: "بوصلة القبلة",    desc: "تحديد دقيق للاتجاه باستخدام مستشعرات الجهاز الأصلية لمحاذاة مثالية نحو مكة المكرمة." },
+        { title: "مواقيت الصلاة", desc: "مواقيت صلاة دقيقة حول العالم مع تنبيهات أذان قابلة للتخصيص للصلوات الخمس." },
+        { title: "بوصلة القبلة", desc: "تحديد دقيق للاتجاه باستخدام مستشعرات الجهاز الأصلية لمحاذاة مثالية نحو مكة المكرمة." },
         { title: "حاسبات إسلامية", desc: "حاسبات متقدمة للزكاة والمواريث وفقاً للشريعة الإسلامية." },
-        { title: "التقويم الهجري",  desc: "نظام تقويم مزدوج متكامل مع دعم تعديل اليوم الهجري يدوياً." },
-        { title: "أذكار المسلم",    desc: "مجموعة كاملة من الأذكار اليومية — أذكار الصباح والمساء والنوم والمناسبات." }
+        { title: "التقويم الهجري", desc: "نظام تقويم مزدوج متكامل مع دعم تعديل اليوم الهجري يدوياً." },
+        { title: "أذكار المسلم", desc: "مجموعة كاملة من الأذكار اليومية — أذكار الصباح والمساء والنوم والمناسبات." }
       ]
     },
     gallery: { tag: "معرض التطبيق", title: "تصميم جميل بروحانية", sub: "واجهة مصممة بعناية لرحلتك الروحية." },
@@ -95,11 +95,11 @@ const T = {
    SCREENSHOT DATA
 ───────────────────────────────────────────── */
 const SHOTS = [
-  { url: '/screenshots/screen1.png',  label: 'Splash' },
-  { url: '/screenshots/screen2.png',  label: 'Home' },
-  { url: '/screenshots/screen7.png',  label: 'Prayers' },
+  { url: '/screenshots/screen1.png', label: 'Splash' },
+  { url: '/screenshots/screen2.png', label: 'Home' },
+  { url: '/screenshots/screen7.png', label: 'Prayers' },
   { url: '/screenshots/screen11.png', label: 'Qibla' },
-  { url: '/screenshots/screen3.png',  label: 'Zakat' },
+  { url: '/screenshots/screen3.png', label: 'Zakat' },
   { url: '/screenshots/screen16.png', label: 'Mirath' },
   { url: '/screenshots/screen12.png', label: 'Azkar' },
   { url: '/screenshots/screen15.png', label: 'Profile' },
@@ -148,8 +148,8 @@ const Logo = ({ size = 80 }) => (
         <feDropShadow dx="0" dy="6" stdDeviation="12" floodColor="#00000055" />
       </filter>
       <filter id="glow">
-        <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
-        <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
+        <feMerge><feMergeNode in="coloredBlur" /><feMergeNode in="SourceGraphic" /></feMerge>
       </filter>
       <clipPath id="roundClip">
         <rect width="200" height="200" rx="46" />
@@ -512,7 +512,7 @@ export default function AlRisalaLanding() {
           {/* CTAs */}
           <div className="anim-5" style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 60 }}>
             <button
-              onClick={() => scrollTo('download')}
+              onClick={() => window.open('https://www.mediafire.com/file/56l9ud7orf2e1bp/Rissala.apk/file', '_blank')}
               className="btn-gold"
               style={{ padding: '16px 36px', borderRadius: 50, fontSize: 16, display: 'flex', alignItems: 'center', gap: 10 }}
             >
@@ -520,11 +520,11 @@ export default function AlRisalaLanding() {
               {t.hero.cta1}
             </button>
             <button
-              onClick={() => window.open('https://github.com', '_blank')}
+              onClick={() => window.open('https://rissala.vercel.app/', '_blank')}
               className="btn-ghost"
               style={{ padding: '16px 36px', borderRadius: 50, fontSize: 16, display: 'flex', alignItems: 'center', gap: 10 }}
             >
-              <Github size={18} />
+              <Globe size={18} />
               {t.hero.cta2}
             </button>
           </div>
@@ -688,17 +688,20 @@ export default function AlRisalaLanding() {
                 sub: isAr ? 'تحميل مباشر · مجاني' : 'Direct install · Free',
                 icon: Smartphone,
                 badge: 'APK',
+                url: 'https://www.mediafire.com/file/56l9ud7orf2e1bp/Rissala.apk/file',
               },
               {
                 label: t.download.web,
                 sub: isAr ? 'بدون تثبيت · فوري' : 'No install · Instant',
                 icon: Globe,
                 badge: 'PWA',
+                url: 'https://rissala.vercel.app/',
               },
-            ].map(({ label, sub, icon: Icon, badge }, i) => (
+            ].map(({ label, sub, icon: Icon, badge, url }, i) => (
               <button
                 key={i}
                 className="sans"
+                onClick={() => window.open(url, '_blank')}
                 style={{
                   display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 18,
                   padding: '24px 28px', borderRadius: 24, textAlign: isAr ? 'right' : 'left',
@@ -767,22 +770,27 @@ export default function AlRisalaLanding() {
       </section>
 
       {/* ── FOOTER ── */}
-      <footer style={{ background: '#080F16', padding: '60px 24px 40px', borderTop: '1px solid rgba(201,168,76,0.15)' }}>
+      <footer style={{ background: '#080F16', padding: '72px 24px 40px', borderTop: '1px solid rgba(201,168,76,0.15)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 32, marginBottom: 48 }}>
+
+          {/* Top row: App brand + Nav links + Social */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 40, marginBottom: 56 }}>
+
+            {/* App brand */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-              <Logo size={44} />
+              <Logo size={48} />
               <div>
-                <div className={`${isAr ? 'arabic' : 'serif'}`} style={{ fontSize: 20, fontWeight: 700, color: '#F7F4EE' }}>
+                <div className={`${isAr ? 'arabic' : 'serif'}`} style={{ fontSize: 22, fontWeight: 700, color: '#F7F4EE', lineHeight: 1 }}>
                   {isAr ? 'الرسالة' : 'Al Risala'}
                 </div>
-                <div className="sans" style={{ fontSize: 11, color: '#8B6914', letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 500 }}>
+                <div className="sans" style={{ fontSize: 11, color: '#8B6914', letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 600, marginTop: 4 }}>
                   {t.footer.sub}
                 </div>
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: 32, flexWrap: 'wrap' }}>
+            {/* Nav links */}
+            <div style={{ display: 'flex', gap: 28, flexWrap: 'wrap', alignItems: 'center' }}>
               {t.footer.links.map((l, i) => (
                 <a key={i} href="#" className="sans" style={{ fontSize: 13, color: 'rgba(247,244,238,0.4)', fontWeight: 500, textDecoration: 'none', letterSpacing: '0.04em', transition: 'color 0.2s' }}
                   onMouseEnter={e => e.target.style.color = '#C9A84C'}
@@ -791,31 +799,133 @@ export default function AlRisalaLanding() {
               ))}
             </div>
 
+            {/* Quick links */}
             <div style={{ display: 'flex', gap: 10 }}>
-              <button style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.3s' }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(201,168,76,0.15)'; e.currentTarget.style.borderColor = '#C9A84C'; }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; }}
-              >
-                <Github size={17} color="#C9A84C" />
-              </button>
-              <button style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.3s' }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(201,168,76,0.15)'; e.currentTarget.style.borderColor = '#C9A84C'; }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; }}
-              >
-                <ExternalLink size={17} color="#C9A84C" />
-              </button>
+              {[
+                { icon: Globe, url: 'https://rissala.vercel.app/', tip: 'Web App' },
+                { icon: Smartphone, url: 'https://www.mediafire.com/file/56l9ud7orf2e1bp/Rissala.apk/file', tip: 'APK' },
+              ].map(({ icon: Icon, url, tip }, i) => (
+                <a key={i} href={url} target="_blank" rel="noopener noreferrer"
+                  title={tip}
+                  style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.3s', textDecoration: 'none' }}
+                  onMouseEnter={e => { e.currentTarget.style.background = 'rgba(201,168,76,0.15)'; e.currentTarget.style.borderColor = '#C9A84C'; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; }}
+                >
+                  <Icon size={17} color="#C9A84C" />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Divider */}
-          <div style={{ borderTop: '1px solid rgba(201,168,76,0.1)', paddingTop: 28, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
-            <p className="sans" style={{ fontSize: 12, color: 'rgba(247,244,238,0.25)', fontWeight: 400 }}>
-              © {new Date().getFullYear()} {isAr ? 'تطبيق الرسالة' : 'Al Risala App'} — {t.footer.rights}
+          {/* ── DEVELOPER CARD ── */}
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(13,27,42,0.6) 100%)',
+            border: '1px solid rgba(201,168,76,0.2)',
+            borderRadius: 24,
+            padding: '36px 40px',
+            marginBottom: 40,
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 36,
+            alignItems: 'flex-start',
+            position: 'relative',
+            overflow: 'hidden',
+          }}>
+            {/* Glow */}
+            <div style={{ position: 'absolute', top: -40, right: -40, width: 200, height: 200, borderRadius: '50%', background: 'radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
+
+            {/* Avatar / initials */}
+            <div style={{ flexShrink: 0 }}>
+              <div style={{
+                width: 72, height: 72, borderRadius: 20,
+                background: 'linear-gradient(135deg, #C9A84C, #7A5C10)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: 26, fontWeight: 800, color: '#0D1B2A',
+                fontFamily: 'DM Sans, sans-serif',
+                boxShadow: '0 8px 32px rgba(201,168,76,0.3)',
+                border: '1.5px solid rgba(255,215,100,0.2)',
+              }}>
+                AB
+              </div>
+            </div>
+
+            {/* Info */}
+            <div style={{ flex: 1, minWidth: 220 }}>
+              <div className="sans" style={{ fontSize: 10, color: '#C9A84C', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 6 }}>
+                {isAr ? 'المطوّر' : 'Developer'}
+              </div>
+              <div className="serif" style={{ fontSize: 24, fontWeight: 700, color: '#F7F4EE', marginBottom: 4, lineHeight: 1.2 }}>
+                Akram Belhadi
+              </div>
+              <div className="sans" style={{ fontSize: 13, color: 'rgba(247,244,238,0.5)', marginBottom: 20, lineHeight: 1.6 }}>
+                Data Analyst &nbsp;·&nbsp; Data Engineering &nbsp;·&nbsp; AI Engineering
+                <br />
+                <span style={{ fontSize: 12, color: 'rgba(247,244,238,0.35)' }}>Eloued, Algeria &nbsp;·&nbsp; Remote &nbsp;·&nbsp; Age 23</span>
+              </div>
+
+              {/* Contact pills */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+                {[
+                  { label: '+213 665 684 972', url: 'tel:+213665684972', icon: '📞' },
+                  { label: 'akrambelhadi2002@gmail.com', url: 'mailto:akrambelhadi2002@gmail.com', icon: '✉️' },
+                ].map(({ label, url, icon }, i) => (
+                  <a key={i} href={url}
+                    className="sans"
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 7,
+                      padding: '7px 14px', borderRadius: 40,
+                      background: 'rgba(201,168,76,0.1)', border: '1px solid rgba(201,168,76,0.2)',
+                      color: 'rgba(247,244,238,0.7)', fontSize: 12, fontWeight: 500,
+                      textDecoration: 'none', transition: 'all 0.25s',
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(201,168,76,0.2)'; e.currentTarget.style.color = '#F5D78E'; e.currentTarget.style.borderColor = 'rgba(201,168,76,0.4)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = 'rgba(201,168,76,0.1)'; e.currentTarget.style.color = 'rgba(247,244,238,0.7)'; e.currentTarget.style.borderColor = 'rgba(201,168,76,0.2)'; }}
+                  >
+                    <span>{icon}</span>{label}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Social + Portfolio links */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, minWidth: 200 }}>
+              <div className="sans" style={{ fontSize: 10, color: '#C9A84C', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 4 }}>
+                {isAr ? 'روابط التواصل' : 'Links & Profiles'}
+              </div>
+              {[
+                { label: 'akrambelhadi.netlify.app', url: 'https://akrambelhadi.netlify.app', icon: '🌐' },
+                { label: 'linkedin.com/in/akrambelhadi', url: 'https://linkedin.com/in/akrambelhadi', icon: '💼' },
+                { label: 'github.com/datawithakram', url: 'https://github.com/datawithakram', icon: '🐙' },
+                { label: 'kaggle.com/akrambelha', url: 'https://kaggle.com/akrambelha', icon: '📊' },
+                { label: 'x.com/the_hnx', url: 'https://x.com/the_hnx', icon: '𝕏' },
+              ].map(({ label, url, icon }, i) => (
+                <a key={i} href={url} target="_blank" rel="noopener noreferrer"
+                  className="sans"
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 8,
+                    color: 'rgba(247,244,238,0.45)', fontSize: 12, fontWeight: 500,
+                    textDecoration: 'none', transition: 'color 0.2s',
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.color = '#C9A84C'}
+                  onMouseLeave={e => e.currentTarget.style.color = 'rgba(247,244,238,0.45)'}
+                >
+                  <span style={{ fontSize: 14, minWidth: 18, textAlign: 'center' }}>{icon}</span>
+                  {label}
+                  <ExternalLink size={10} style={{ opacity: 0.4 }} />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Bottom bar */}
+          <div style={{ borderTop: '1px solid rgba(201,168,76,0.1)', paddingTop: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+            <p className="sans" style={{ fontSize: 12, color: 'rgba(247,244,238,0.22)', fontWeight: 400 }}>
+              © {new Date().getFullYear()} Al Risala · Built by Akram Belhadi — {t.footer.rights}
             </p>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#10B981' }} />
+              <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#10B981', boxShadow: '0 0 6px #10B981' }} />
               <span className="sans" style={{ fontSize: 12, color: 'rgba(247,244,238,0.25)' }}>
-                {isAr ? 'مفتوح المصدر' : 'Open Source'}
+                {isAr ? 'مفتوح المصدر · الجزائر' : 'Open Source · Algeria'}
               </span>
             </div>
           </div>
