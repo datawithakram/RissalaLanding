@@ -1,13 +1,1370 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>my-app</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0D1B2A" />
+  <title>Al Risala — الرسالة</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=Noto+Sans+Arabic:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ══ RESET & BASE ══ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #F7F4EE;
+      color: #0D1B2A;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a   { text-decoration: none; color: inherit; }
+    button { cursor: pointer; font-family: inherit; border: none; background: none; }
+
+    /* ══ TOKENS ══ */
+    :root {
+      --gold:      #C9A84C;
+      --gold-lt:   #F5D78E;
+      --gold-dk:   #8B6914;
+      --dark:      #0D1B2A;
+      --dark2:     #060D14;
+      --cream:     #F7F4EE;
+      --text-mute: #4A5568;
+      --r:         clamp(16px, 4vw, 28px); /* responsive horizontal padding */
+    }
+
+    /* ══ TYPOGRAPHY ══ */
+    .serif  { font-family: 'Cormorant Garamond', Georgia, serif; }
+    .arabic { font-family: 'Noto Sans Arabic', sans-serif; }
+
+    /* ══ LAYOUT ══ */
+    .container {
+      width: 100%;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 var(--r);
+    }
+
+    section { scroll-margin-top: 68px; }
+
+    /* ══ ANIMATIONS ══ */
+    @keyframes fadeUp   { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes shimmer  { 0%{background-position:-200% center} 100%{background-position:200% center} }
+    @keyframes pulse    { 0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.3)} 50%{box-shadow:0 0 0 14px rgba(201,168,76,0)} }
+    @keyframes scrollLine { 0%,100%{opacity:.3;transform:translateY(0)} 50%{opacity:1;transform:translateY(8px)} }
+
+    .fade-1{animation:fadeUp .7s .00s ease both}
+    .fade-2{animation:fadeUp .7s .12s ease both}
+    .fade-3{animation:fadeUp .7s .22s ease both}
+    .fade-4{animation:fadeUp .7s .34s ease both}
+    .fade-5{animation:fadeUp .7s .46s ease both}
+
+    /* ══ SHIMMER TEXT ══ */
+    .shimmer-text {
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-lt) 40%, var(--gold) 60%, var(--gold-dk) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite;
+    }
+
+    /* ══ BUTTONS ══ */
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dk));
+      color: var(--dark);
+      font-weight: 700;
+      font-size: clamp(13px, 2vw, 15px);
+      transition: transform .25s, box-shadow .25s;
+      box-shadow: 0 6px 24px rgba(201,168,76,.3);
+      white-space: nowrap;
+    }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(201,168,76,.45); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 50px;
+      background: transparent;
+      border: 1.5px solid rgba(13,27,42,.22);
+      color: var(--dark);
+      font-weight: 600;
+      font-size: clamp(13px, 2vw, 15px);
+      transition: all .25s;
+      white-space: nowrap;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold-dk); background: rgba(201,168,76,.07); }
+
+    /* ══ TAG LABEL ══ */
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    /* ══ SECTION TITLE ══ */
+    .section-title {
+      font-size: clamp(26px, 5vw, 46px);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .section-sub {
+      font-size: clamp(14px, 2vw, 16px);
+      color: var(--text-mute);
+      max-width: 480px;
+    }
+
+    /* ══ ISLAMIC PATTERN SVG background ══ */
+    .pattern-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    /* ══════════════════════
+       NAVBAR
+    ══════════════════════ */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      transition: background .35s, border-color .35s, backdrop-filter .35s;
+      border-bottom: 1px solid transparent;
+    }
+    #navbar.scrolled {
+      background: rgba(247,244,238,.95);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom-color: rgba(201,168,76,.18);
+    }
+    .nav-inner {
+      width: 100%;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 var(--r);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .nav-brand-name {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .nav-brand-sub {
+      font-size: 9px;
+      color: var(--gold-dk);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: #555;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold-dk); }
+    .nav-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .btn-lang {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 12px;
+      border-radius: 40px;
+      background: transparent;
+      border: 1.5px solid rgba(13,27,42,.2);
+      font-size: 12px;
+      font-weight: 600;
+      transition: all .25s;
+    }
+    .btn-lang:hover { border-color: var(--gold); color: var(--gold-dk); }
+    .btn-nav-dl {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 40px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dk));
+      color: var(--dark);
+      font-weight: 700;
+      font-size: 12px;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .btn-nav-dl:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(201,168,76,.4); }
+    .btn-menu {
+      display: none;
+      padding: 4px;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Mobile drawer */
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      z-index: 998;
+      background: var(--cream);
+      border-bottom: 1px solid rgba(201,168,76,.18);
+      padding: 16px var(--r);
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+    }
+    #mobile-menu.open { display: flex; }
+    #mobile-menu a {
+      font-size: 17px;
+      font-weight: 500;
+      color: #444;
+      padding: 4px 0;
+    }
+
+    /* ══════════════════════
+       HERO
+    ══════════════════════ */
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 100px var(--r) 72px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 55% at 50% 0%, rgba(201,168,76,.1) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    .hero-content { width: 100%; max-width: 680px; position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(201,168,76,.1);
+      border: 1px solid rgba(201,168,76,.28);
+      border-radius: 40px;
+      padding: 6px 14px;
+      margin-bottom: 26px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gold-dk);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    .hero-logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 26px;
+    }
+    .hero-logo-inner {
+      animation: pulse 3s ease-in-out infinite;
+      border-radius: 50%;
+      display: inline-block;
+      line-height: 0;
+    }
+    .hero-title {
+      font-size: clamp(38px, 9vw, 80px);
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .hero-title-ar {
+      font-size: clamp(16px, 3vw, 22px);
+      color: var(--gold-dk);
+      margin-bottom: 18px;
+      font-style: italic;
+      font-weight: 400;
+    }
+    .hero-sub {
+      font-size: clamp(14px, 2.2vw, 17px);
+      line-height: 1.75;
+      color: var(--text-mute);
+      max-width: 540px;
+      margin: 0 auto 34px;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: clamp(24px, 6vw, 48px);
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(201,168,76,.18);
+      padding-top: 30px;
+    }
+    .stat-val {
+      font-size: clamp(24px, 5vw, 32px);
+      font-weight: 700;
+      line-height: 1;
+    }
+    .stat-lbl {
+      font-size: 10px;
+      color: var(--gold-dk);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-top: 5px;
+      font-weight: 600;
+    }
+    .scroll-line {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 44px;
+      background: linear-gradient(180deg, transparent, var(--gold));
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+
+    /* ══════════════════════
+       GALLERY
+    ══════════════════════ */
+    #gallery {
+      padding: 76px 0;
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    .gallery-head {
+      padding: 0 var(--r);
+      margin-bottom: 36px;
+    }
+    .gallery-head .section-title { color: #F7F4EE; }
+    .gallery-head .section-sub   { color: rgba(247,244,238,.48); }
+    .gallery-strip {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      padding: 8px var(--r) 36px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .gallery-strip::-webkit-scrollbar { display: none; }
+    .phone-card {
+      flex-shrink: 0;
+      width: 185px;
+      height: 390px;
+      border-radius: 28px;
+      background: #111;
+      border: 5px solid #1e1e1e;
+      overflow: hidden;
+      box-shadow: 0 20px 48px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.06);
+      transition: transform .4s ease;
+      position: relative;
+    }
+    .phone-card:hover { transform: rotate(0deg) scale(1.04) !important; }
+    .phone-notch {
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 52px; height: 15px;
+      background: #111;
+      border-radius: 0 0 10px 10px;
+      z-index: 2;
+    }
+    .phone-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .gallery-end-card {
+      flex-shrink: 0;
+      width: 185px;
+      height: 390px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, #1a3a2a, #0D1B2A);
+      border: 1px solid rgba(201,168,76,.22);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 22px;
+      text-align: center;
+      box-shadow: 0 20px 48px rgba(0,0,0,.4);
+    }
+    .gallery-end-icon {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: rgba(201,168,76,.11);
+      border: 1px solid rgba(201,168,76,.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gallery-end-text {
+      font-size: 15px;
+      color: #F7F4EE;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    /* ══════════════════════
+       FEATURES
+    ══════════════════════ */
+    #features {
+      padding: 76px 0;
+      background: var(--cream);
+      position: relative;
+    }
+    .features-head { text-align: center; margin-bottom: 52px; }
+    .features-head .section-sub { margin: 0 auto; }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+    .feature-card {
+      background: #fff;
+      border: 1px solid rgba(201,168,76,.13);
+      border-radius: 22px;
+      padding: clamp(20px, 3vw, 32px) clamp(18px, 2.5vw, 26px);
+      transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--gold), var(--gold-dk));
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .feature-card:hover { transform: translateY(-5px); box-shadow: 0 18px 48px rgba(201,168,76,.1); border-color: rgba(201,168,76,.32); }
+    .feature-card:hover::before { opacity: 1; }
+    .feature-icon-wrap {
+      width: 46px; height: 46px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+    .feature-title {
+      font-size: clamp(17px, 2.8vw, 21px);
+      font-weight: 700;
+      margin-bottom: 9px;
+    }
+    .feature-desc {
+      font-size: clamp(13px, 1.8vw, 14px);
+      color: var(--text-mute);
+      line-height: 1.72;
+    }
+    .feature-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .feature-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+    }
+    /* Last feature card spans full width centered */
+    .feature-card.last {
+      grid-column: 1 / -1;
+      max-width: 520px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* ══════════════════════
+       DOWNLOAD
+    ══════════════════════ */
+    #download {
+      padding: 76px 0;
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    .download-glow {
+      position: absolute;
+      top: 40%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%; max-width: 480px;
+      height: 280px;
+      background: radial-gradient(ellipse, rgba(201,168,76,.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .download-inner {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .download-inner .section-title { color: #F7F4EE; }
+    .download-inner .section-sub   { color: rgba(247,244,238,.48); margin: 0 auto 40px; }
+    .download-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      max-width: 580px;
+      margin: 0 auto 28px;
+    }
+    .dl-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 20px 22px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dk));
+      border: 1.5px solid rgba(255,255,255,.17);
+      color: var(--dark);
+      transition: transform .3s ease, box-shadow .3s ease;
+      box-shadow: 0 8px 28px rgba(201,168,76,.28);
+      position: relative;
+      overflow: hidden;
+      text-align: left;
+      cursor: pointer;
+    }
+    .dl-card:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 20px 50px rgba(201,168,76,.5); }
+    .dl-card-shine {
+      position: absolute;
+      top: 0; left: -45%;
+      width: 30%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+      transform: skewX(-20deg);
+      pointer-events: none;
+    }
+    .dl-badge {
+      position: absolute;
+      top: 9px; right: 10px;
+      background: rgba(13,27,42,.17);
+      border-radius: 5px;
+      padding: 2px 7px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .07em;
+      border: 1px solid rgba(13,27,42,.12);
+    }
+    .dl-icon-wrap {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      background: rgba(13,27,42,.14);
+      border: 1.5px solid rgba(13,27,42,.13);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .dl-for    { font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .52; margin-bottom: 3px; }
+    .dl-title  { font-size: 16px; font-weight: 700; line-height: 1.2; }
+    .dl-sub    { font-size: 11px; opacity: .58; margin-top: 2px; }
+    .dl-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      font-size: 12px;
+      color: rgba(247,244,238,.38);
+      font-weight: 500;
+    }
+
+    /* ══════════════════════
+       FOOTER
+    ══════════════════════ */
+    footer {
+      background: var(--dark2);
+      padding: 60px 0 32px;
+      border-top: 1px solid rgba(201,168,76,.13);
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+    .footer-brand-name { font-size: 19px; font-weight: 700; color: #F7F4EE; line-height: 1; }
+    .footer-brand-sub  { font-size: 9px; color: var(--gold-dk); letter-spacing: .1em; text-transform: uppercase; font-weight: 600; margin-top: 3px; }
+    .footer-nav {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .footer-nav a {
+      font-size: 12px;
+      color: rgba(247,244,238,.36);
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .footer-nav a:hover { color: var(--gold); }
+    .footer-icons { display: flex; gap: 8px; }
+    .foot-icon {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .25s;
+      cursor: pointer;
+    }
+    .foot-icon:hover { background: rgba(201,168,76,.13); border-color: var(--gold); }
+
+    /* Developer card */
+    .dev-card {
+      background: linear-gradient(135deg, rgba(201,168,76,.07), rgba(13,27,42,.5));
+      border: 1px solid rgba(201,168,76,.17);
+      border-radius: 20px;
+      padding: clamp(20px, 3vw, 32px);
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .dev-card-glow {
+      position: absolute;
+      top: -28px; right: -28px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .dev-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
+    }
+    .dev-info {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      flex: 1;
+      min-width: 240px;
+    }
+    .dev-avatar {
+      width: 60px; height: 60px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--gold), #7A5C10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--dark);
+      box-shadow: 0 6px 20px rgba(201,168,76,.25);
+      border: 1.5px solid rgba(255,215,100,.18);
+      flex-shrink: 0;
+    }
+    .dev-label  { font-size: 9px; color: var(--gold); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 4px; }
+    .dev-name   { font-size: clamp(17px, 3vw, 21px); font-weight: 700; color: #F7F4EE; margin-bottom: 3px; line-height: 1.2; }
+    .dev-role   { font-size: 12px; color: rgba(247,244,238,.45); line-height: 1.6; margin-bottom: 14px; }
+    .dev-pills  { display: flex; flex-wrap: wrap; gap: 8px; }
+    .dev-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 11px;
+      border-radius: 40px;
+      background: rgba(201,168,76,.08);
+      border: 1px solid rgba(201,168,76,.16);
+      color: rgba(247,244,238,.6);
+      font-size: 11px;
+      font-weight: 500;
+      transition: all .2s;
+    }
+    .dev-pill:hover { background: rgba(201,168,76,.16); color: #F5D78E; }
+    .dev-links { min-width: 190px; }
+    .dev-links-label { font-size: 9px; color: var(--gold); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 11px; }
+    .dev-link {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: rgba(247,244,238,.38);
+      font-size: 11px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      transition: color .2s;
+    }
+    .dev-link:hover { color: var(--gold); }
+    .dev-link-icon { font-size: 12px; min-width: 15px; text-align: center; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(201,168,76,.08);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .footer-copy { font-size: 11px; color: rgba(247,244,238,.18); }
+    .footer-status { display: flex; align-items: center; gap: 6px; font-size: 11px; color: rgba(247,244,238,.2); }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #10B981; box-shadow: 0 0 5px #10B981; }
+
+    /* ══════════════════════
+       SVG ICONS (inline)
+    ══════════════════════ */
+    .icon { display: inline-block; vertical-align: middle; flex-shrink: 0; }
+
+    /* ══════════════════════
+       RESPONSIVE
+    ══════════════════════ */
+    @media (max-width: 900px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .feature-card.last { grid-column: 1; max-width: 100%; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .btn-menu  { display: flex; }
+      .lang-text { display: none; }
+      .download-grid { grid-template-columns: 1fr; }
+      .footer-top  { flex-direction: column; gap: 20px; }
+      .dev-row     { flex-direction: column; gap: 20px; }
+      .dev-links   { min-width: unset; }
+    }
+
+    @media (max-width: 380px) {
+      .btn-gold, .btn-ghost { padding: 11px 20px; }
+      .hero-ctas { gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <!-- Brand -->
+    <div class="nav-brand" onclick="scrollTo('hero')">
+      <!-- Logo SVG -->
+      <svg width="34" height="34" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="lgNav" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#E8C55A"/><stop offset="50%" stop-color="#C9A84C"/><stop offset="100%" stop-color="#7A5C10"/>
+          </linearGradient>
+          <clipPath id="rcNav"><rect width="200" height="200" rx="46"/></clipPath>
+        </defs>
+        <rect width="200" height="200" rx="46" fill="url(#lgNav)"/>
+        <rect width="200" height="200" rx="46" fill="#0D1B2A" clip-path="url(#rcNav)"/>
+        <circle cx="82" cy="100" r="50" fill="#C9A84C" clip-path="url(#rcNav)"/>
+        <circle cx="100" cy="92" r="42" fill="#0D1B2A" clip-path="url(#rcNav)"/>
+        <polygon points="148,70 152.5,83 167,83 156,91 160,104 148,96 136,104 140,91 129,83 143.5,83" fill="#F5D78E"/>
+      </svg>
+      <div>
+        <div class="nav-brand-name serif" id="nav-title">Al Risala</div>
+        <div class="nav-brand-sub" id="nav-sub">The Divine Compass</div>
+      </div>
+    </div>
+
+    <!-- Desktop links -->
+    <div class="nav-links" id="nav-links">
+      <a onclick="scrollTo('features')" id="nl-features">Features</a>
+      <a onclick="scrollTo('gallery')"  id="nl-gallery">Gallery</a>
+      <a onclick="scrollTo('download')" id="nl-download">Download</a>
+    </div>
+
+    <!-- Actions -->
+    <div class="nav-actions">
+      <button class="btn-lang" onclick="toggleLang()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <span id="lang-btn-text">العربية</span>
+      </button>
+      <button class="btn-nav-dl" onclick="scrollTo('download')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span id="nav-dl-text">Download</span>
+      </button>
+      <button class="btn-menu" id="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+        <svg id="menu-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile drawer -->
+<div id="mobile-menu">
+  <a onclick="scrollTo('features')" id="mm-features">Features</a>
+  <a onclick="scrollTo('gallery')"  id="mm-gallery">Gallery</a>
+  <a onclick="scrollTo('download')" id="mm-download">Download</a>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <!-- Islamic pattern -->
+  <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:1" xmlns="http://www.w3.org/2000/svg">
+    <defs><pattern id="pt" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="#C9A84C" stroke-width="0.7" opacity="0.9">
+        <polygon points="40,2 78,21 78,59 40,78 2,59 2,21"/>
+        <polygon points="40,14 66,27 66,53 40,66 14,53 14,27"/>
+        <line x1="40" y1="2" x2="40" y2="78"/><line x1="2" y1="21" x2="78" y2="59"/><line x1="78" y1="21" x2="2" y2="59"/>
+        <circle cx="40" cy="40" r="9"/>
+        <circle cx="40" cy="40" r="3.5" fill="#C9A84C" fill-opacity="0.25" stroke="none"/>
+      </g>
+    </pattern></defs>
+    <rect width="100%" height="100%" fill="url(#pt)" opacity="0.07"/>
+  </svg>
+
+  <div class="hero-content">
+    <!-- Badge -->
+    <div class="hero-badge fade-1">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <span id="hero-badge-text">Open Source · Free Forever</span>
+    </div>
+
+    <!-- Logo -->
+    <div class="hero-logo-wrap fade-2">
+      <div class="hero-logo-inner">
+        <svg width="90" height="90" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="lgHero" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#E8C55A"/><stop offset="50%" stop-color="#C9A84C"/><stop offset="100%" stop-color="#7A5C10"/>
+            </linearGradient>
+            <clipPath id="rcHero"><rect width="200" height="200" rx="46"/></clipPath>
+            <filter id="gf"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <rect width="200" height="200" rx="46" fill="url(#lgHero)"/>
+          <rect width="200" height="200" rx="46" fill="#0D1B2A" clip-path="url(#rcHero)"/>
+          <circle cx="100" cy="100" r="90" fill="rgba(201,168,76,0.06)" clip-path="url(#rcHero)"/>
+          <g clip-path="url(#rcHero)" filter="url(#gf)">
+            <circle cx="82" cy="100" r="50" fill="#C9A84C"/>
+            <circle cx="100" cy="92" r="42" fill="#0D1B2A"/>
+          </g>
+          <g filter="url(#gf)">
+            <polygon points="148,70 152.5,83 167,83 156,91 160,104 148,96 136,104 140,91 129,83 143.5,83" fill="#F5D78E"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Title -->
+    <h1 class="hero-title serif fade-3"><span class="shimmer-text" id="hero-title">Al Risala</span></h1>
+    <p class="hero-title-ar serif fade-3" id="hero-title-ar">الرسالة</p>
+
+    <!-- Subtitle -->
+    <p class="hero-sub fade-4" id="hero-sub">
+      Your comprehensive Islamic companion. High-precision prayer times, Qibla direction, Zakat &amp; Inheritance calculators, Hijri calendar, and complete daily Adhkar — all in one beautiful app.
+    </p>
+
+    <!-- CTAs -->
+    <div class="hero-ctas fade-5">
+      <a href="https://www.mediafire.com/file/56l9ud7orf2e1bp/Rissala.apk/file" target="_blank" class="btn-gold">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span id="hero-cta1">Free Download</span>
+      </a>
+      <a href="https://rissala.vercel.app/" target="_blank" class="btn-ghost">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <span id="hero-cta2">Visit Website</span>
+      </a>
+    </div>
+
+    <!-- Stats -->
+    <div class="hero-stats">
+      <div style="text-align:center">
+        <div class="stat-val serif">4.9/5</div>
+        <div class="stat-lbl" id="stat1-lbl">Rating</div>
+      </div>
+      <div style="text-align:center">
+        <div class="stat-val serif">100%</div>
+        <div class="stat-lbl" id="stat2-lbl">Free</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-line"></div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     GALLERY
+══════════════════════════════════════════ -->
+<section id="gallery">
+  <!-- Pattern -->
+  <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none" xmlns="http://www.w3.org/2000/svg">
+    <defs><pattern id="pt2" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="#C9A84C" stroke-width="0.7" opacity="0.6">
+        <polygon points="40,2 78,21 78,59 40,78 2,59 2,21"/><polygon points="40,14 66,27 66,53 40,66 14,53 14,27"/>
+        <line x1="40" y1="2" x2="40" y2="78"/><line x1="2" y1="21" x2="78" y2="59"/><line x1="78" y1="21" x2="2" y2="59"/>
+      </g>
+    </pattern></defs>
+    <rect width="100%" height="100%" fill="url(#pt2)" opacity="0.06"/>
+  </svg>
+
+  <div class="gallery-head container" style="position:relative;z-index:1">
+    <div class="tag" id="gallery-tag">App Gallery</div>
+    <h2 class="section-title serif" id="gallery-title">Beautifully Designed</h2>
+    <p class="section-sub" id="gallery-sub">A soulfully crafted interface for your spiritual journey.</p>
+  </div>
+
+  <div class="gallery-strip" style="position:relative;z-index:1">
+    <div class="phone-card" style="transform:rotate(-1.5deg)"><div class="phone-notch"></div><img src="/screenshots/screen1.png" alt="Splash" onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#0D1B2A,#1a3a2a)'"/></div>
+    <div class="phone-card" style="transform:rotate(1.5deg)"><div class="phone-notch"></div><img src="/screenshots/screen2.png" alt="Home" onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#0D1B2A,#1a3a2a)'"/></div>
+    <div class="phone-card" style="transform:rotate(-1.5deg)"><div class="phone-notch"></div><img src="/screenshots/screen7.png" alt="Prayers" onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#0D1B2A,#1a3a2a)'"/></div>
+    <div class="phone-card" style="transform:rotate(1.5deg)"><div class="phone-notch"></div><img src="/screenshots/screen11.png" alt="Qibla" onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#0D1B2A,#1a3a2a)'"/></div>
+    <div class="phone-card" style="transform:rotate(-1.5deg)"><div class="phone-notch"></div><img src="/screenshots/screen3.png" alt="Zakat" onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#0D1B2A,#1a3a2a)'"/></div>
+    <div class="phone-card" style="transform:rotate(1.5deg)"><div class="phone-notch"></div><img src="/screenshots/screen16.png" alt="Mirath" onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#0D1B2A,#1a3a2a)'"/></div>
+    <div class="phone-card" style="transform:rotate(-1.5deg)"><div class="phone-notch"></div><img src="/screenshots/screen12.png" alt="Azkar" onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#0D1B2A,#1a3a2a)'"/></div>
+    <div class="phone-card" style="transform:rotate(1.5deg)"><div class="phone-notch"></div><img src="/screenshots/screen15.png" alt="Profile" onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#0D1B2A,#1a3a2a)'"/></div>
+    <!-- End card -->
+    <div class="gallery-end-card">
+      <div class="gallery-end-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <p class="gallery-end-text serif" id="gallery-more">Many more features...</p>
+      <a href="#download" class="btn-gold" style="font-size:12px;padding:9px 18px" onclick="scrollTo('download');return false" id="gallery-cta">Download</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FEATURES
+══════════════════════════════════════════ -->
+<section id="features">
+  <!-- Pattern -->
+  <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none" xmlns="http://www.w3.org/2000/svg">
+    <defs><pattern id="pt3" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="#C9A84C" stroke-width="0.7" opacity="0.6">
+        <polygon points="40,2 78,21 78,59 40,78 2,59 2,21"/>
+      </g>
+    </pattern></defs>
+    <rect width="100%" height="100%" fill="url(#pt3)" opacity="0.05"/>
+  </svg>
+
+  <div class="container" style="position:relative;z-index:1">
+    <div class="features-head">
+      <div class="tag" id="features-tag">Core Features</div>
+      <h2 class="section-title serif" id="features-title">Precision Meets Spirituality</h2>
+      <p class="section-sub" id="features-sub">Every detail crafted for high performance and religious accuracy.</p>
+    </div>
+
+    <div class="features-grid" id="features-grid">
+      <!-- Cards injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     DOWNLOAD
+══════════════════════════════════════════ -->
+<section id="download">
+  <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none" xmlns="http://www.w3.org/2000/svg">
+    <defs><pattern id="pt4" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="#C9A84C" stroke-width="0.7" opacity="0.6">
+        <polygon points="40,2 78,21 78,59 40,78 2,59 2,21"/>
+        <polygon points="40,14 66,27 66,53 40,66 14,53 14,27"/>
+      </g>
+    </pattern></defs>
+    <rect width="100%" height="100%" fill="url(#pt4)" opacity="0.055"/>
+  </svg>
+  <div class="download-glow"></div>
+
+  <div class="container download-inner">
+    <div class="tag" id="dl-tag">Download Now</div>
+    <h2 class="section-title serif" id="dl-title">Start Your Spiritual Journey</h2>
+    <p class="section-sub" id="dl-sub">Accurate prayer notifications, precision Qibla, and advanced Islamic tools — all free.</p>
+
+    <div class="download-grid">
+      <!-- Android -->
+      <a class="dl-card" href="https://www.mediafire.com/file/56l9ud7orf2e1bp/Rissala.apk/file" target="_blank">
+        <div class="dl-card-shine"></div>
+        <div class="dl-badge">APK</div>
+        <div class="dl-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0D1B2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <div>
+          <div class="dl-for" id="dl-for1">Download for</div>
+          <div class="dl-title" id="dl-android">Android</div>
+          <div class="dl-sub" id="dl-android-sub">Download APK · Free</div>
+        </div>
+      </a>
+      <!-- Web -->
+      <a class="dl-card" href="https://rissala.vercel.app/" target="_blank">
+        <div class="dl-card-shine"></div>
+        <div class="dl-badge">PWA</div>
+        <div class="dl-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0D1B2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div>
+          <div class="dl-for" id="dl-for2">Download for</div>
+          <div class="dl-title" id="dl-web">Web App</div>
+          <div class="dl-sub" id="dl-web-sub">Open in browser · PWA</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="dl-note">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <span id="dl-note">Free and open-source for the Ummah</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+
+    <!-- Top row -->
+    <div class="footer-top">
+      <div class="footer-brand">
+        <svg width="40" height="40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="lgFt" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#E8C55A"/><stop offset="50%" stop-color="#C9A84C"/><stop offset="100%" stop-color="#7A5C10"/>
+            </linearGradient>
+            <clipPath id="rcFt"><rect width="200" height="200" rx="46"/></clipPath>
+          </defs>
+          <rect width="200" height="200" rx="46" fill="url(#lgFt)"/>
+          <rect width="200" height="200" rx="46" fill="#0D1B2A" clip-path="url(#rcFt)"/>
+          <circle cx="82" cy="100" r="50" fill="#C9A84C" clip-path="url(#rcFt)"/>
+          <circle cx="100" cy="92" r="42" fill="#0D1B2A" clip-path="url(#rcFt)"/>
+          <polygon points="148,70 152.5,83 167,83 156,91 160,104 148,96 136,104 140,91 129,83 143.5,83" fill="#F5D78E"/>
+        </svg>
+        <div>
+          <div class="footer-brand-name serif" id="ft-brand">Al Risala</div>
+          <div class="footer-brand-sub" id="ft-sub">The Divine Compass</div>
+        </div>
+      </div>
+
+      <nav class="footer-nav" id="footer-nav">
+        <a href="#" id="ft-terms">Terms</a>
+        <a href="#" id="ft-privacy">Privacy</a>
+        <a href="#" id="ft-contact">Contact</a>
+        <a href="#" id="ft-support">Support</a>
+      </nav>
+
+      <div class="footer-icons">
+        <a href="https://rissala.vercel.app/" target="_blank" class="foot-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </a>
+        <a href="https://www.mediafire.com/file/56l9ud7orf2e1bp/Rissala.apk/file" target="_blank" class="foot-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Developer card -->
+    <div class="dev-card">
+      <div class="dev-card-glow"></div>
+      <div class="dev-row">
+        <!-- Left: avatar + info -->
+        <div class="dev-info">
+          <div class="dev-avatar">AB</div>
+          <div>
+            <div class="dev-label" id="dev-label">Developer</div>
+            <div class="dev-name serif">Akram Belhadi</div>
+            <div class="dev-role">
+              Data Analyst · Data Engineering · AI Engineering<br>
+              <span style="font-size:11px;color:rgba(247,244,238,0.28)">Eloued, Algeria · Remote · Age 23</span>
+            </div>
+            <div class="dev-pills">
+              <a href="tel:+213665684972" class="dev-pill">📞 +213 665 684 972</a>
+              <a href="mailto:akrambelhadi2002@gmail.com" class="dev-pill">✉️ akrambelhadi2002@gmail.com</a>
+            </div>
+          </div>
+        </div>
+        <!-- Right: links -->
+        <div class="dev-links">
+          <div class="dev-links-label" id="dev-links-label">Links &amp; Profiles</div>
+          <a href="https://akrambelhadi.netlify.app" target="_blank" class="dev-link"><span class="dev-link-icon">🌐</span>akrambelhadi.netlify.app<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="opacity:.3;flex-shrink:0"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+          <a href="https://linkedin.com/in/akrambelhadi" target="_blank" class="dev-link"><span class="dev-link-icon">💼</span>linkedin/akrambelhadi<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="opacity:.3;flex-shrink:0"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+          <a href="https://github.com/datawithakram" target="_blank" class="dev-link"><span class="dev-link-icon">🐙</span>github/datawithakram<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="opacity:.3;flex-shrink:0"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+          <a href="https://kaggle.com/akrambelha" target="_blank" class="dev-link"><span class="dev-link-icon">📊</span>kaggle/akrambelha<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="opacity:.3;flex-shrink:0"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+          <a href="https://x.com/the_hnx" target="_blank" class="dev-link"><span class="dev-link-icon">𝕏</span>x.com/the_hnx<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="opacity:.3;flex-shrink:0"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <p class="footer-copy" id="ft-copy">© 2025 Al Risala · Built by Akram Belhadi — All rights reserved.</p>
+      <div class="footer-status">
+        <div class="status-dot"></div>
+        <span id="ft-status">Open Source · Algeria</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
+<script>
+/* ── State ── */
+var lang = 'en';
+var menuOpen = false;
+
+/* ── Translations ── */
+var TR = {
+  en: {
+    navTitle:'Al Risala', navSub:'The Divine Compass',
+    nlFeatures:'Features', nlGallery:'Gallery', nlDownload:'Download', navDl:'Download',
+    langBtn:'العربية',
+    badge:'Open Source · Free Forever',
+    heroTitle:'Al Risala', heroTitleAr:'الرسالة',
+    heroSub:'Your comprehensive Islamic companion. High-precision prayer times, Qibla direction, Zakat & Inheritance calculators, Hijri calendar, and complete daily Adhkar — all in one beautiful app.',
+    cta1:'Free Download', cta2:'Visit Website',
+    stat1:'Rating', stat2:'Free',
+    galleryTag:'App Gallery', galleryTitle:'Beautifully Designed',
+    gallerySub:'A soulfully crafted interface for your spiritual journey.',
+    galleryMore:'Many more features...', galleryCta:'Download',
+    featuresTag:'Core Features', featuresTitle:'Precision Meets Spirituality',
+    featuresSub:'Every detail crafted for high performance and religious accuracy.',
+    features:[
+      {title:'Prayer Times',       desc:'Accurate worldwide prayer times with customizable Adhan notifications for all 5 daily prayers.',color:'#10B981'},
+      {title:'Qibla Compass',      desc:'Precision Qibla direction using native device sensors for perfect Mecca alignment.',color:'#C9A84C'},
+      {title:'Islamic Calculators',desc:'Advanced Zakat and Inheritance (Mawarith) calculators according to Sharia law.',color:'#3B82F6'},
+      {title:'Hijri Calendar',     desc:'Dual-calendar system with manual Hijri day adjustment support.',color:'#6366F1'},
+      {title:'Muslim Adhkar',      desc:'Complete daily Adhkar — morning, evening, sleep, and occasion-based supplications.',color:'#EC4899'},
+    ],
+    dlTag:'Download Now', dlTitle:'Start Your Spiritual Journey',
+    dlSub:'Accurate prayer notifications, precision Qibla, and advanced Islamic tools — all free.',
+    dlFor:'Download for', dlAndroid:'Android', dlAndroidSub:'Download APK · Free',
+    dlWeb:'Web App', dlWebSub:'Open in browser · PWA',
+    dlNote:'Free and open-source for the Ummah',
+    ftBrand:'Al Risala', ftSub:'The Divine Compass',
+    ftTerms:'Terms', ftPrivacy:'Privacy', ftContact:'Contact', ftSupport:'Support',
+    ftCopy:'© '+new Date().getFullYear()+' Al Risala · Built by Akram Belhadi — All rights reserved.',
+    ftStatus:'Open Source · Algeria',
+    devLabel:'Developer', devLinks:'Links & Profiles',
+  },
+  ar: {
+    navTitle:'الرسالة', navSub:'البوصلة الإلهية',
+    nlFeatures:'المميزات', nlGallery:'المعرض', nlDownload:'التحميل', navDl:'تحميل',
+    langBtn:'English',
+    badge:'مفتوح المصدر · مجاني للأبد',
+    heroTitle:'الرسالة', heroTitleAr:'Al Risala',
+    heroSub:'رفيقك الإسلامي الشامل. مواقيت صلاة دقيقة، اتجاه القبلة، حاسبات الزكاة والمواريث، التقويم الهجري، وأذكار المسلم الكاملة — كل ذلك في تطبيق واحد.',
+    cta1:'تحميل مجاني', cta2:'زيارة الموقع',
+    stat1:'التقييم', stat2:'مجاني',
+    galleryTag:'معرض التطبيق', galleryTitle:'تصميم جميل بروحانية',
+    gallerySub:'واجهة مصممة بعناية لرحلتك الروحية.',
+    galleryMore:'والعديد من الميزات...', galleryCta:'تحميل',
+    featuresTag:'المميزات الأساسية', featuresTitle:'الدقة تلتقي بالروحانية',
+    featuresSub:'تم تصميم كل تفصيل لتقديم أداء عالٍ ودقة دينية.',
+    features:[
+      {title:'مواقيت الصلاة',  desc:'مواقيت صلاة دقيقة حول العالم مع تنبيهات أذان قابلة للتخصيص للصلوات الخمس.',color:'#10B981'},
+      {title:'بوصلة القبلة',   desc:'تحديد دقيق لاتجاه القبلة باستخدام مستشعرات الجهاز لمحاذاة مثالية نحو مكة.',color:'#C9A84C'},
+      {title:'حاسبات إسلامية',desc:'حاسبات متقدمة للزكاة والمواريث وفقاً للشريعة الإسلامية.',color:'#3B82F6'},
+      {title:'التقويم الهجري', desc:'نظام تقويم مزدوج مع دعم تعديل اليوم الهجري يدوياً.',color:'#6366F1'},
+      {title:'أذكار المسلم',   desc:'أذكار يومية كاملة — أذكار الصباح والمساء والنوم والمناسبات.',color:'#EC4899'},
+    ],
+    dlTag:'حمّل الآن', dlTitle:'ابدأ رحلتك الروحية',
+    dlSub:'تنبيهات دقيقة للصلوات، قبلة دقيقة، وأدوات إسلامية متقدمة — كل ذلك مجاناً.',
+    dlFor:'تحميل على', dlAndroid:'أندرويد', dlAndroidSub:'تحميل APK · مجاني',
+    dlWeb:'تطبيق الويب', dlWebSub:'افتح في المتصفح · PWA',
+    dlNote:'مجاني ومفتوح المصدر للأمة',
+    ftBrand:'الرسالة', ftSub:'البوصلة الإلهية',
+    ftTerms:'الشروط', ftPrivacy:'الخصوصية', ftContact:'اتصل بنا', ftSupport:'الدعم',
+    ftCopy:'© '+new Date().getFullYear()+' تطبيق الرسالة · بناه أكرم بلهادي — جميع الحقوق محفوظة.',
+    ftStatus:'مفتوح المصدر · الجزائر',
+    devLabel:'المطوّر', devLinks:'روابط التواصل',
+  }
+};
+
+function set(id, text) {
+  var el = document.getElementById(id);
+  if (el) el.textContent = text;
+}
+
+function applyLang() {
+  var t = TR[lang];
+  var isAr = lang === 'ar';
+
+  document.documentElement.lang = lang;
+  document.documentElement.dir  = isAr ? 'rtl' : 'ltr';
+
+  /* Apply Arabic font class to serif elements */
+  var serifs = document.querySelectorAll('.serif');
+  serifs.forEach(function(el) {
+    if (isAr) { el.classList.add('arabic'); el.style.fontStyle = 'normal'; }
+    else       { el.classList.remove('arabic'); }
+  });
+
+  set('nav-title', t.navTitle);
+  set('nav-sub',   t.navSub);
+  set('nl-features', t.nlFeatures); set('nl-gallery', t.nlGallery); set('nl-download', t.nlDownload);
+  set('mm-features', t.nlFeatures); set('mm-gallery', t.nlGallery); set('mm-download', t.nlDownload);
+  set('nav-dl-text', t.navDl);
+  set('lang-btn-text', t.langBtn);
+
+  set('hero-badge-text', t.badge);
+  set('hero-title',      t.heroTitle);
+  set('hero-title-ar',   t.heroTitleAr);
+  set('hero-sub',        t.heroSub);
+  set('hero-cta1',       t.cta1);
+  set('hero-cta2',       t.cta2);
+  set('stat1-lbl',       t.stat1);
+  set('stat2-lbl',       t.stat2);
+
+  set('gallery-tag',   t.galleryTag);
+  set('gallery-title', t.galleryTitle);
+  set('gallery-sub',   t.gallerySub);
+  set('gallery-more',  t.galleryMore);
+  set('gallery-cta',   t.galleryCta);
+
+  set('features-tag',   t.featuresTag);
+  set('features-title', t.featuresTitle);
+  set('features-sub',   t.featuresSub);
+
+  /* Rebuild features grid */
+  var grid = document.getElementById('features-grid');
+  if (grid) {
+    grid.innerHTML = '';
+    t.features.forEach(function(f, i) {
+      var last = (i === 4);
+      var card = document.createElement('div');
+      card.className = 'feature-card' + (last ? ' last' : '');
+      card.innerHTML =
+        '<div class="feature-icon-wrap" style="background:'+f.color+'13;border:1px solid '+f.color+'22">'+
+          svgIcon(i, f.color)+
+        '</div>'+
+        '<h3 class="feature-title serif'+(isAr?' arabic':'')+'">'+f.title+'</h3>'+
+        '<p class="feature-desc">'+f.desc+'</p>'+
+        '<div class="feature-badge">'+
+          '<div class="feature-dot" style="background:'+f.color+'"></div>'+
+          '<span style="color:'+f.color+'">'+(isAr?'متضمن':'Included')+'</span>'+
+        '</div>';
+      grid.appendChild(card);
+    });
+  }
+
+  set('dl-tag',         t.dlTag);
+  set('dl-title',       t.dlTitle);
+  set('dl-sub',         t.dlSub);
+  set('dl-for1',        t.dlFor);
+  set('dl-for2',        t.dlFor);
+  set('dl-android',     t.dlAndroid);
+  set('dl-android-sub', t.dlAndroidSub);
+  set('dl-web',         t.dlWeb);
+  set('dl-web-sub',     t.dlWebSub);
+  set('dl-note',        t.dlNote);
+
+  set('ft-brand',   t.ftBrand);
+  set('ft-sub',     t.ftSub);
+  set('ft-terms',   t.ftTerms);
+  set('ft-privacy', t.ftPrivacy);
+  set('ft-contact', t.ftContact);
+  set('ft-support', t.ftSupport);
+  set('ft-copy',    t.ftCopy);
+  set('ft-status',  t.ftStatus);
+  set('dev-label',       t.devLabel);
+  set('dev-links-label', t.devLinks);
+}
+
+function svgIcon(i, color) {
+  var icons = [
+    /* Bell */ '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="'+color+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
+    /* Compass */ '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="'+color+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>',
+    /* Calculator */ '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="'+color+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8.01" y2="10"/><line x1="12" y1="10" x2="12.01" y2="10"/><line x1="16" y1="10" x2="16.01" y2="10"/><line x1="8" y1="14" x2="8.01" y2="14"/><line x1="12" y1="14" x2="12.01" y2="14"/><line x1="16" y1="14" x2="16.01" y2="14"/><line x1="8" y1="18" x2="12" y2="18"/><line x1="16" y1="18" x2="16.01" y2="18"/></svg>',
+    /* Calendar */ '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="'+color+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+    /* BookOpen */ '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="'+color+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+  ];
+  return icons[i] || icons[0];
+}
+
+function toggleLang() {
+  lang = (lang === 'en') ? 'ar' : 'en';
+  applyLang();
+}
+
+function scrollTo(id) {
+  var el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+  closeMenu();
+}
+
+function toggleMenu() {
+  menuOpen = !menuOpen;
+  var m = document.getElementById('mobile-menu');
+  var icon = document.getElementById('menu-icon');
+  if (menuOpen) {
+    m.classList.add('open');
+    icon.innerHTML = '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>';
+  } else {
+    m.classList.remove('open');
+    icon.innerHTML = '<line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>';
+  }
+}
+function closeMenu() {
+  menuOpen = false;
+  document.getElementById('mobile-menu').classList.remove('open');
+}
+
+/* Navbar scroll effect */
+window.addEventListener('scroll', function() {
+  var nav = document.getElementById('navbar');
+  if (window.scrollY > 36) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+}, { passive: true });
+
+/* Init */
+applyLang();
+</script>
+</body>
 </html>
